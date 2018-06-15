@@ -3,6 +3,7 @@ import Page from '../../components/Page'
 import styled from 'react-emotion'
 import { ServersConsumer } from '../../contexts/servers'
 import { TablesConsumer } from '../../contexts/tables'
+import { LogsConsumer } from '../../contexts/logs'
 
 const Box = styled.div`
   border: 1px solid #cfcfcf;
@@ -44,7 +45,7 @@ const Dashboard = () => (
             <Fragment>
               <h3>Servers</h3>
               <div>
-                <b>{servers.length}</b> server connected
+                <b>{servers.list.length}</b> server connected
               </div>
               <div>
                 <b>0</b> servers missing
@@ -59,7 +60,7 @@ const Dashboard = () => (
             <Fragment>
               <h3>Tables</h3>
               <div>
-                <b>{tables.length}</b> tables ready
+                <b>{tables.list.length}</b> tables ready
               </div>
               <div>
                 <b>0</b> tables with issues
@@ -71,7 +72,7 @@ const Dashboard = () => (
       <Stat>
         <TablesConsumer>
           {tables => {
-            const indexCount = tables.reduce((acc, table) => {
+            const indexCount = tables.list.reduce((acc, table) => {
               return acc + table.indexes.length
             }, 0)
             return (
@@ -97,6 +98,18 @@ const Dashboard = () => (
           <b>0</b> Bytes disk used
         </div>
       </Stat>
+    </Box>
+    <Box>
+      <h1>Recent log entries</h1>
+      <hr/>
+      <ul>
+        <LogsConsumer>
+          {
+            logs => logs.map(table =>
+              <li>asdasdasd</li>)
+          }
+          </LogsConsumer>
+      </ul>
     </Box>
   </Page>
 )

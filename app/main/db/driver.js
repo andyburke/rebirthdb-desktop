@@ -1,6 +1,7 @@
 const { r } = require('rebirthdb-ts')
-const { getServers, getTables } = require('./queries/stats')
-// const r = require('rethinkdb')
+const { getServers, getServerStatus, getServersStats } = require('./queries/servers')
+const { getTables, getTableStatus, getTablesStats } = require('./queries/tables')
+const { getLogs } = require('./queries/logs')
 
 let connection
 
@@ -8,11 +9,34 @@ const driver = {
   getConnection() {
     return connection
   },
-  getServers() {
-    return getServers().run(connection)
+  async getServersInfo() {
+    const [list, status, stats] = await Promise.all([
+      getServers().run(connection),
+      getServerStatus().run(connection),
+      getServersStats().run(connection)
+    ]);
+
+    return {
+      list,
+      status,
+      stats
+    }
   },
-  getTables() {
-    return getTables().run(connection)
+  async getTablesInfo() {
+    const [list, status, stats] = await Promise.all([
+      getTables().run(connection),
+      getTableStatus().run(connection),
+      getTablesStats().run(connection)
+    ]);
+
+    return {
+      list,
+      status,
+      stats
+    }
+  },
+  getLogs () {
+    return getLogs().run(connection)
   },
   connect: async function(config = {}) {
     if (connection) {

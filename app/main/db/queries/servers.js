@@ -2,10 +2,24 @@ const { r } = require('rebirthdb-ts')
 
 module.exports = {
   getServers,
-  getTables
+  getServerStatus,
+  getServersStats
 }
 
 function getServers() {
+  return r
+    .db('rethinkdb')
+    .table('server_config')
+    .coerceTo('array')
+}
+
+function getServerStatus() {
+  return r
+    .db('rethinkdb')
+    .table('server_status')
+}
+
+function getServersStats() {
   return r
     .db('rethinkdb')
     .table('stats')
@@ -14,12 +28,5 @@ function getServers() {
         .nth(0)
         .eq('server')
     )
-    .coerceTo('array')
-}
-
-function getTables() {
-  return r
-    .db('rethinkdb')
-    .table('table_config')
     .coerceTo('array')
 }

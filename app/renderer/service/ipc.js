@@ -11,3 +11,7 @@ export const getServers = () => {
 export const getTables = () => {
   return ipc.callMain('tables')
 }
+
+export const getLogs = () => {
+  return ipc.callMain('logs')
+}

@@ -61,7 +61,7 @@ const Info = () => (
       <FF>
         <KK>Connected to</KK>
         <ServersConsumer>
-          {servers => <JJ>{servers[0] ? JSON.stringify(servers[0].server) : ''}</JJ>}
+          {servers => <JJ>{servers.list[0] ? JSON.stringify(servers.list[0].name) : ''}</JJ>}
         </ServersConsumer>
       </FF>
     </Item>
@@ -80,7 +80,7 @@ const Info = () => (
       </DD>
       <FF>
         <kk>Servers</kk>
-        <ServersConsumer>{servers => <JJ>{servers.length} Connected</JJ>}</ServersConsumer>
+        <ServersConsumer>{servers => <JJ>{servers.list.length} Connected</JJ>}</ServersConsumer>
       </FF>
     </Item>
     <Item>
@@ -92,7 +92,7 @@ const Info = () => (
         <TablesConsumer>
           {tables => (
             <JJ>
-              {tables.length}/{tables.length} ready
+              {tables.list.length}/{tables.list.length} ready
             </JJ>
           )}
         </TablesConsumer>

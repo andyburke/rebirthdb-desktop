@@ -1,10 +1,11 @@
-const { connect, getServers, getTables } = require('./driver')
+const { connect, getServersInfo, getTablesInfo, getLogs } = require('./driver')
 const ipc = require('electron-better-ipc')
 const url = require('../helpers/url')
 
 const queries = {
-  servers: getServers,
-  tables: getTables
+  servers: getServersInfo,
+  tables: getTablesInfo,
+  logs: getLogs
 }
 
 ipc.answerRenderer('connect', ({ name, address }) => {
