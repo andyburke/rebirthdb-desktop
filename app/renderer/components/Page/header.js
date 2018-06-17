@@ -66,6 +66,11 @@ const Header = () => (
           </NavLink>
         </li>
         <li>
+          <NavLink to="/servers" activeClassName="active">
+            Servers
+          </NavLink>
+        </li>
+        <li>
           <NavLink to="/explorer" activeClassName="active">
             Data Explorer
           </NavLink>

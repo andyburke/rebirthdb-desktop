@@ -10,7 +10,7 @@ const Box = styled.div`
   background: #fbfbfb;
   box-shadow: 0 2px 1px rgba(0, 0, 0, 0.04), inset 0 -1px 2px rgba(0, 0, 0, 0.05);
   margin: 2rem;
-  display: flex;
+  display: ${props => props.display || 'block'};
 
   h3 {
     font-weight: bold;
@@ -38,7 +38,7 @@ const Stat = styled.div`
 
 const Dashboard = () => (
   <Page>
-    <Box>
+    <Box display="flex">
       <Stat>
         <ServersConsumer>
           {servers => (
@@ -72,9 +72,7 @@ const Dashboard = () => (
       <Stat>
         <TablesConsumer>
           {tables => {
-            const indexCount = tables.list.reduce((acc, table) => {
-              return acc + table.indexes.length
-            }, 0)
+            const indexCount = tables.list.reduce((acc, table) => acc + table.indexes.length, 0)
             return (
               <Fragment>
                 <h3>Indexed</h3>
@@ -105,8 +103,13 @@ const Dashboard = () => (
       <ul>
         <LogsConsumer>
           {
-            logs => logs.map(table =>
-              <li>asdasdasd</li>)
+            logs => logs.map(({id, level, message, timestamp, server}) =>
+              <li key={id}>
+                Level: {level}<br/>
+                message: {message}<br/>
+                timestamp: {timestamp}<br/>
+                Posted By: {server}<br/>
+                </li>)
           }
           </LogsConsumer>
       </ul>
